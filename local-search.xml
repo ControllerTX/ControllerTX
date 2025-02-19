@@ -32,10 +32,10 @@
   
   <entry>
     <title>图片上传测试</title>
-    <link href="/ControllerTX/2025/02/18/%E5%9B%BE%E7%89%87%E4%B8%8A%E4%BC%A0%E6%B5%8B%E8%AF%95/"/>
-    <url>/ControllerTX/2025/02/18/%E5%9B%BE%E7%89%87%E4%B8%8A%E4%BC%A0%E6%B5%8B%E8%AF%95/</url>
+    <link href="/ControllerTX/2025/02/18/test/"/>
+    <url>/ControllerTX/2025/02/18/test/</url>
     
-    <content type="html"><![CDATA[<h2 id="test"><a href="#test" class="headerlink" title="test"></a>test</h2><p><img src="/ControllerTX/test/girl.jpg"></p>]]></content>
+    <content type="html"><![CDATA[<h2 id="test"><a href="#test" class="headerlink" title="test"></a>test</h2><img src="/ControllerTX/2025/02/18/test/girl.jpg" class="">]]></content>
     
     
     
