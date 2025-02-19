@@ -35,7 +35,7 @@
     <link href="/ControllerTX/2025/02/18/test/"/>
     <url>/ControllerTX/2025/02/18/test/</url>
     
-    <content type="html"><![CDATA[<h2 id="test"><a href="#test" class="headerlink" title="test"></a>test</h2><p><img src="/ControllerTX/./test/girl.jpg"></p>]]></content>
+    <content type="html"><![CDATA[<h2 id="test"><a href="#test" class="headerlink" title="test"></a>test</h2><img src="/ControllerTX/2025/02/18/test/girl.jpg" class="">]]></content>
     
     
     
