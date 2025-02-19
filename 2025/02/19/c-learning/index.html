@@ -31,7 +31,7 @@
 <meta property="og:image" content="https://controllertx.github.io/ControllerTX/2025/02/19/c-learning/3-2.png">
 <meta property="og:image" content="https://controllertx.github.io/ControllerTX/2025/02/19/c-learning/3-3.png">
 <meta property="article:published_time" content="2025-02-18T16:00:00.000Z">
-<meta property="article:modified_time" content="2025-02-19T07:01:12.207Z">
+<meta property="article:modified_time" content="2025-02-19T10:09:13.587Z">
 <meta property="article:author" content="AllIn-TX">
 <meta property="article:tag" content="c++">
 <meta property="article:tag" content="opencv">
@@ -229,7 +229,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          197 字
+          949 字
         
       </span>
     
@@ -240,7 +240,7 @@
         
         
         
-          2 分钟
+          8 分钟
         
       </span>
     
@@ -300,12 +300,61 @@
 <img src="/ControllerTX/2025/02/19/c-learning/3-3.png" srcset="/ControllerTX/img/loading.gif" lazyload class="" title="3-3">
 
 <h2 id="引入opencv库"><a href="#引入opencv库" class="headerlink" title="引入opencv库"></a>引入opencv库</h2><p>​	只需要在头文件中引入就好啦</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c++">$ <span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;opencv2/opencv.hpp&gt;</span></span><br></code></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;opencv2/opencv.hpp&gt;</span></span><br></code></pre></td></tr></table></figure>
+
+<h2 id="图片的直方图均衡化处理"><a href="#图片的直方图均衡化处理" class="headerlink" title="图片的直方图均衡化处理"></a>图片的直方图均衡化处理</h2><p>1.首先导入头文件,以及命名空间,并读取原始图片</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;opencv2/opencv.hpp&gt;</span></span><br><span class="hljs-function">use <span class="hljs-keyword">namespace</span> cv</span><br><span class="hljs-function"></span><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;<br>	Mat img = <span class="hljs-built_in">imread</span>(<span class="hljs-string">&quot;图片路径&quot;</span>)<br>	<span class="hljs-comment">//加上一个非空判断</span><br>	<span class="hljs-keyword">if</span>(img.<span class="hljs-built_in">empty</span>())&#123;<br>		cout &lt;&lt; <span class="hljs-string">&quot;读取失败&quot;</span> &lt;&lt;endl;<br>		<span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;<br>	&#125;<br>    <span class="hljs-comment">//后续代码....</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>2.如果图片是彩色的 我们要将图片转为灰度图片,可以在1.中第5行imread函数中添加一个参数<strong>COLOR_BGR2GRAY</strong>直接读取灰度图片,或者使用cvtColor()函数转化</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c++">Mat grat_img;<br><span class="hljs-built_in">cvtColor</span>(img, gray_img, COLOR_BGR2GRAY);<br></code></pre></td></tr></table></figure>
+
+<p>3.均衡化函数 equalizeHist(),将灰度图片均衡化</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c++">Mat equalized_img;<br><span class="hljs-built_in">equalizeHist</span>(gray_img, equalized_img);<br></code></pre></td></tr></table></figure>
+
+<p>4.结果显示 imshow()</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-built_in">imshow</span>(<span class="hljs-string">&quot;灰度图片&quot;</span>, gray_img);<br><span class="hljs-built_in">imshow</span>(<span class="hljs-string">&quot;均衡化&quot;</span>, equalized_img);<br></code></pre></td></tr></table></figure>
+
+<h2 id="直方图均衡化算法实现原理"><a href="#直方图均衡化算法实现原理" class="headerlink" title="直方图均衡化算法实现原理"></a>直方图均衡化算法实现原理</h2><h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><blockquote>
+<p>直方图均衡化的目的是增强图像的对比度，尤其是当图像的前景和背景对比度较低时, 它通过重新分配像素的强度值，使得图像的直方图更均匀地分布在整个强度范围内,这通常会让图像细节更明显。</p>
+</blockquote>
+<br/>
+
+<p>直方图均衡化的核心原理是通过 <strong>重新分布像素灰度值</strong>，使得图像中各灰度级出现的概率接近均匀，从而增强图像对比度</p>
+<h3 id="实现步骤"><a href="#实现步骤" class="headerlink" title="实现步骤"></a>实现步骤</h3><ol>
+<li><strong>计算直方图</strong>：统计每个灰度级的像素数量。</li>
+<li><strong>计算累积分布函数（CDF）</strong>：累加直方图，得到每个灰度级的累积像素数。</li>
+<li><strong>构建查找表</strong>：根据CDF将每个灰度级映射到新值，使得分布均匀。</li>
+<li><strong>应用映射</strong>：使用查找表转换图像的每个像素。</li>
+</ol>
+<h3 id="我的理解"><a href="#我的理解" class="headerlink" title="我的理解"></a>我的理解</h3><p>​	人类眼中的图片可以是五彩斑斓的,但是计算机世界的图片类似与排列整齐的数字方阵,</p>
+<p>例如假设人眼看到的是一只小狗图片,而计算机看到的是以下矩阵</p>
+<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs basic"><span class="hljs-symbol">1 </span><span class="hljs-number">4</span> <span class="hljs-number">3</span> <span class="hljs-number">3</span><br><span class="hljs-symbol">3 </span><span class="hljs-number">3</span> <span class="hljs-number">1</span> <span class="hljs-number">1</span><br><span class="hljs-symbol">4 </span><span class="hljs-number">2</span> <span class="hljs-number">4</span> <span class="hljs-number">2</span><br><span class="hljs-symbol">3 </span><span class="hljs-number">3</span> <span class="hljs-number">4</span> <span class="hljs-number">2</span><br></code></pre></td></tr></table></figure>
+
+<p>这样图片就类似于一个二维数组,我们就可以遍历它,获取每一个像素,以及每一个像素值出现的频率,</p>
+<p>上图是一个4x4的图像数据,总像素数据<strong>K</strong>&#x3D;16,分别有0-7种灰度等级,我们可以统计每一种灰度等级出现的频率 <strong>n</strong></p>
+<p>即计算直方图</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">gray_leave</span>:  <span class="hljs-number">0</span>  <span class="hljs-number">1</span>  <span class="hljs-number">2</span>  <span class="hljs-number">3</span>  <span class="hljs-number">4</span> <span class="hljs-number">5</span> <span class="hljs-number">6</span> <span class="hljs-number">7</span><br>         <span class="hljs-attribute">n</span>:  <span class="hljs-number">0</span>  <span class="hljs-number">3</span>  <span class="hljs-number">3</span>  <span class="hljs-number">6</span>  <span class="hljs-number">4</span> <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">0</span><br></code></pre></td></tr></table></figure>
+
+<p>现在我们来计算概率分布  计算公式为: 每种灰度等级出现的频率&#x2F;总像素数  即 <strong>n</strong>&#x2F;<strong>K</strong>,我们得到分布概率<strong>m</strong></p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">gray_leave</span>:  <span class="hljs-number">0</span>  <span class="hljs-number">1</span>       <span class="hljs-number">2</span>       <span class="hljs-number">3</span>      <span class="hljs-number">4</span>     <span class="hljs-number">5</span>  <span class="hljs-number">6</span>  <span class="hljs-number">7</span><br>         <span class="hljs-attribute">n</span>:  <span class="hljs-number">0</span>  <span class="hljs-number">3</span>       <span class="hljs-number">3</span>       <span class="hljs-number">6</span>      <span class="hljs-number">4</span>     <span class="hljs-number">0</span>  <span class="hljs-number">0</span>  <span class="hljs-number">0</span><br>         <span class="hljs-attribute">m</span>:  <span class="hljs-number">0</span>  <span class="hljs-number">0</span>.<span class="hljs-number">1875</span>  <span class="hljs-number">0</span>.<span class="hljs-number">1875</span>  <span class="hljs-number">0</span>.<span class="hljs-number">375</span>  <span class="hljs-number">0</span>.<span class="hljs-number">25</span>  <span class="hljs-number">0</span>  <span class="hljs-number">0</span>  <span class="hljs-number">0</span><br></code></pre></td></tr></table></figure>
+
+<p>计算累积分布函数（CDF)的值<strong>L</strong>  即累加 第二项的值&#x3D;前两项的和</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">gray_leave</span>:  <span class="hljs-number">0</span>  <span class="hljs-number">1</span>       <span class="hljs-number">2</span>       <span class="hljs-number">3</span>      <span class="hljs-number">4</span>     <span class="hljs-number">5</span>  <span class="hljs-number">6</span>  <span class="hljs-number">7</span><br>         <span class="hljs-attribute">n</span>:  <span class="hljs-number">0</span>  <span class="hljs-number">3</span>       <span class="hljs-number">3</span>       <span class="hljs-number">6</span>      <span class="hljs-number">4</span>     <span class="hljs-number">0</span>  <span class="hljs-number">0</span>  <span class="hljs-number">0</span><br>         <span class="hljs-attribute">m</span>:  <span class="hljs-number">0</span>  <span class="hljs-number">0</span>.<span class="hljs-number">1875</span>  <span class="hljs-number">0</span>.<span class="hljs-number">1875</span>  <span class="hljs-number">0</span>.<span class="hljs-number">375</span>  <span class="hljs-number">0</span>.<span class="hljs-number">25</span>  <span class="hljs-number">0</span>  <span class="hljs-number">0</span>  <span class="hljs-number">0</span><br>         <span class="hljs-attribute">L</span>:  <span class="hljs-number">0</span>  <span class="hljs-number">0</span>.<span class="hljs-number">1875</span>  <span class="hljs-number">0</span>.<span class="hljs-number">375</span>   <span class="hljs-number">0</span>.<span class="hljs-number">75</span>   <span class="hljs-number">1</span>     <span class="hljs-number">1</span>  <span class="hljs-number">1</span>  <span class="hljs-number">1</span><br></code></pre></td></tr></table></figure>
+
+<p>映射到新灰度级</p>
+<p>出现的灰度等级有 1,2,3,4</p>
+<p>新映射灰度等S1 &#x3D;7*0.1875 &#x3D;1.3125 ≈1</p>
+<p>​			S2 &#x3D;7*0.375 &#x3D;2.625 ≈ 3</p>
+<p>​			S3 &#x3D;7*0.75 &#x3D;5.25 ≈ 5</p>
+<p>​			S4 &#x3D;7*1 &#x3D;7</p>
+<p>新图像矩阵为</p>
+<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs basic"><span class="hljs-symbol">1 </span> <span class="hljs-number">7</span>  <span class="hljs-number">5</span>  <span class="hljs-number">5</span><br><span class="hljs-symbol">5 </span> <span class="hljs-number">5</span>  <span class="hljs-number">1</span>  <span class="hljs-number">1</span><br><span class="hljs-symbol">7 </span> <span class="hljs-number">3</span>  <span class="hljs-number">7</span>  <span class="hljs-number">3</span><br><span class="hljs-symbol">5 </span> <span class="hljs-number">5</span>  <span class="hljs-number">7</span>  <span class="hljs-number">3</span><br></code></pre></td></tr></table></figure>
 
 
 
 <h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><blockquote>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_50557558/article/details/141103000">c++版opencv长文指南_c++ opencv-CSDN博客</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_47489229/article/details/126207719">OpenCV图像处理基础(C++版)_opencv c++-CSDN博客</a></p>
 </blockquote>
 
                 
