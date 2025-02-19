@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>C++ /opencv库学习</title>
+    <link href="/ControllerTX/2025/02/19/c-learning/"/>
+    <url>/ControllerTX/2025/02/19/c-learning/</url>
+    
+    <content type="html"><![CDATA[<h1 id="C-opencv库学习"><a href="#C-opencv库学习" class="headerlink" title="C++ &#x2F;opencv库学习"></a>C++ &#x2F;opencv库学习</h1><blockquote><p>我使用的软件是visual Studio 2022 以及opencv库版本4.8.1</p></blockquote><h2 id="在项目中配置openCV库"><a href="#在项目中配置openCV库" class="headerlink" title="在项目中配置openCV库"></a>在项目中配置openCV库</h2><p>1.创建一个新项目</p><p>2.下载好opencv库后将其解压到固定的文件夹 例如 D:\opencv</p><p>3.右击项目–属性–<img src="/ControllerTX/.%5Cc-learning%5C3.png" alt="3"></p><p>​3.1选择  VC++目录–包含目录–    配置如下</p><p><img src="/ControllerTX/.%5Cc-learning%5C3-1.png" alt="3-1"></p><p>​3.2 选择  VC++目录–库目录–    配置如下</p><p><img src="/ControllerTX/.%5Cc-learning%5C3-2.png" alt="3-2"></p><p>​3.3 配置链接器  选择链接器–输入–附加依赖项–  (添加opencv的lib文件路径,此处有坑!)</p><p>​选择光标位置的lib文件就好 路径: D:\opencv\build\x64\vc16\lib</p><p>​后缀d代表是debug版本,，在vs中使用debug的版本就会报错</p><p><img src="/ControllerTX/.%5Cc-learning%5C3-3.png" alt="3-3"></p><h2 id="引入opencv库"><a href="#引入opencv库" class="headerlink" title="引入opencv库"></a>引入opencv库</h2><p>​只需要在头文件中引入就好啦</p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c++">$ <span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;opencv2/opencv.hpp&gt;</span></span><br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>c++,opencv</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>c++</tag>
+      
+      <tag>opencv</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>test</title>
     <link href="/ControllerTX/2025/02/18/test/"/>
     <url>/ControllerTX/2025/02/18/test/</url>
@@ -36,19 +63,6 @@
       <tag>hexo</tag>
       
     </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title>Hello World</title>
-    <link href="/ControllerTX/2025/02/16/hello-world/"/>
-    <url>/ControllerTX/2025/02/16/hello-world/</url>
-    
-    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo new <span class="hljs-string">&quot;My New Post&quot;</span><br></code></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo server<br></code></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo generate<br></code></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo deploy<br></code></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>]]></content>
-    
-    
     
   </entry>
   
